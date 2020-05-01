@@ -1,6 +1,7 @@
 package com.example.chatinator
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -19,63 +20,84 @@ import android.view.View
 val usersName = ArrayList<String>()
 val usersPass = ArrayList<String>()
 
+private  const val TAG = "MainActivity"
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.test)
+        setContentView(R.layout.activity_main)
 
-        usersName.add("Marcel")
-        usersPass.add("parola")
+//        usersName.add("Marcel")
+//        usersPass.add("parola")
+//        LoginButton.setOnClickListener(object : View.OnClickListener{
+//            override fun onClick(p0 : View?)
+//            {
+//                val name = NameText.text.toString()
+//                val password = PasswordText.text.toString()
+//
+//                if(name == usersName[0] && password == usersPass[0])
+//                {
+//                    setContentView(R.layout.activity_main)
+//                }
+//            }
+//        })
+//
+//        RegisterButton.setOnClickListener(object : View.OnClickListener{
+//            override fun onClick(p0 : View?)
+//            {
+//                setContentView(R.layout.activity_main)
+//            }
+//        })
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
-        LoginButton.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(p0 : View?)
+        val appDatabase = AppDatabase.getInstance(this)
+        val db = appDatabase.readableDatabase
+
+        val cursor = db.rawQuery("SELECT * FROM Users",null)
+        Log.d(TAG,"********************************8")
+        cursor.use {
+            while (it.moveToNext())
             {
-                val name = NameText.text.toString()
-                val password = PasswordText.text.toString()
-
-                if(name == usersName[0] && password == usersPass[0])
-                {
-                    setContentView(R.layout.activity_main)
+                with(cursor){
+                    val id = getLong(0)
+                    val name = getString(1)
+                    val pass = getString(2)
+                    val email = getString(3)
+                    val result = "ID: $id. Name: $name pass: $pass email: $email"
+                    Log.d(TAG, "onCreate: reading data $result")
                 }
             }
-        })
+        }
+        Log.d(TAG,"********************************8")
 
-        RegisterButton.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(p0 : View?)
-            {
-                setContentView(R.layout.activity_main)
-            }
-        })
-//        val toolbar: Toolbar = findViewById(R.id.toolbar)
-//        setSupportActionBar(toolbar)
-//
-//        val fab: FloatingActionButton = findViewById(R.id.fab)
-//        fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show()
-//        }
-//        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-//        val navView: NavigationView = findViewById(R.id.nav_view)
-//        val navController = findNavController(R.id.nav_host_fragment)
-//        // Passing each menu ID as a set of Ids because each
-//        // menu should be considered as top level destinations.
-//        appBarConfiguration = AppBarConfiguration(setOf(
-//                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow), drawerLayout)
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//        navView.setupWithNavController(navController)
+        val fab: FloatingActionButton = findViewById(R.id.fab)
+        fab.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+        }
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        val navView: NavigationView = findViewById(R.id.nav_view)
+        val navController = findNavController(R.id.nav_host_fragment)
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        appBarConfiguration = AppBarConfiguration(setOf(
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow), drawerLayout)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        menuInflater.inflate(R.menu.main, menu)
-//        return true
-//    }
-//
-//    override fun onSupportNavigateUp(): Boolean {
-//        val navController = findNavController(R.id.nav_host_fragment)
-//        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-//    }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.main, menu)
+        return true
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
 }
