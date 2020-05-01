@@ -1,5 +1,6 @@
 package com.example.chatinator
 
+import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -16,9 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import kotlinx.android.synthetic.main.test.*
 import android.view.View
-
-val usersName = ArrayList<String>()
-val usersPass = ArrayList<String>()
+import kotlin.math.log
 
 private  const val TAG = "MainActivity"
 
@@ -30,50 +29,78 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.test)
 
-        val projection = arrayOf(UsersContract.Columns.USERS_NAME,UsersContract.Columns.USERS_EMAIL)
         val sortColumn = UsersContract.Columns.USERS_EMAIL
 
-        val cursor = contentResolver.query(UsersContract.buildUriFromId(1),
-        projection,
-        null,
-        null,
-        sortColumn)
-        Log.d(TAG,"********************************8")
-        cursor.use {
-            if (it != null) {
-                while (it.moveToNext()) {
-                    with(cursor){
-//                        val id = this?.getLong(0)
-                        val name = this?.getString(0)
-//                        val pass = this?.getString(2)
-                        val email = this?.getString(1)
-                        val result = "Name: $name email: $email"
-                        Log.d(TAG, "onCreate: reading data $result")
-                    }
-                }
-            }
-        }
-        Log.d(TAG,"********************************8")
+//        val cursor = contentResolver.query(UsersContract.buildUriFromId(1)
 
-        usersName.add("Marcel")
-        usersPass.add("parola")
         LoginButton.setOnClickListener(object : View.OnClickListener{
             override fun onClick(p0 : View?)
             {
                 val name = NameText.text.toString()
                 val password = PasswordText.text.toString()
 
-                if(name == usersName[0] && password == usersPass[0])
-                {
-                    setContentView(R.layout.activity_main)
+                val cursor = contentResolver.query(UsersContract.CONTENT_URI,
+                    null,
+                    null,
+                    null,
+                    sortColumn)
+                cursor.use {
+                    if (it != null) {
+                        while (it.moveToNext()) {
+                            with(cursor){
+                                val name_db = this?.getString(1)
+                                val pass_db = this?.getString(2)
+                                if(name.equals(name_db) && password.equals(pass_db))
+                                {
+                                    setContentView(R.layout.activity_main)
+                                }
+                            }
+                        }
+                    }
                 }
+
             }
         })
 
         RegisterButton.setOnClickListener(object : View.OnClickListener{
             override fun onClick(p0 : View?)
             {
-                setContentView(R.layout.activity_main)
+                val name = NameText.text.toString()
+                val password = PasswordText.text.toString()
+                var existsAlready = false
+
+                val cursor = contentResolver.query(UsersContract.CONTENT_URI,
+                    null,
+                    null,
+                    null,
+                    sortColumn)
+
+                cursor.use {
+                    if (it != null) {
+                        while (it.moveToNext()) {
+                            with(cursor){
+                                val name_db = this?.getString(1)
+                                val pass_db = this?.getString(2)
+                                if(name.equals(name_db) && password.equals(pass_db))
+                                {
+                                    existsAlready = true
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if(!existsAlready)
+                {
+                    val values = ContentValues().apply{
+                        put(UsersContract.Columns.USERS_NAME, "Radu")
+                        put(UsersContract.Columns.USERS_PASS, "12345")
+                        put(UsersContract.Columns.USERS_EMAIL, "radu@email.com")
+                    }
+
+                    contentResolver.insert(UsersContract.CONTENT_URI, values)
+                    setContentView(R.layout.activity_main)
+                }
             }
         })
 //        val toolbar: Toolbar = findViewById(R.id.toolbar)
@@ -94,7 +121,6 @@ class MainActivity : AppCompatActivity() {
 //        setupActionBarWithNavController(navController, appBarConfiguration)
 //        navView.setupWithNavController(navController)
     }
-
 //    override fun onCreateOptionsMenu(menu: Menu): Boolean {
 //        // Inflate the menu; this adds items to the action bar if it is present.
 //        menuInflater.inflate(R.menu.main, menu)
