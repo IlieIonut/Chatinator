@@ -50,10 +50,9 @@ class MainActivity : AppCompatActivity() {
                         while(it.moveToNext()) {
                             // Cycle through all records
                             with(cursor) {
-                                val name_db = this?.getString(1)
-                                val pass_db = this?.getString(2)
-                                Log.d(TAG,name_db)
-                                if(name.equals(name_db) && password.equals(pass_db) )
+                                val nameDb = this?.getString(1)
+                                val passDb = this?.getString(2)
+                                if(name == nameDb && password == passDb)
                                 {
                                     setContentView(R.layout.activity_main)
                                 }
@@ -85,11 +84,9 @@ class MainActivity : AppCompatActivity() {
                             if (it != null) {
                                 while (it.moveToNext()) {
                                     with(cursor){
-                                        val name_db = this?.getString(1)
-                                        val pass_db = this?.getString(2)
-                                        Log.d(TAG,name_db)
-                                        Log.d(TAG,name)
-                                        if(name == name_db && password == pass_db)
+                                        val nameDb = this?.getString(1)
+                                        val passDb = this?.getString(2)
+                                        if(name == nameDb && password == passDb)
                                         {
                                             existsAlready = true
                                         }
