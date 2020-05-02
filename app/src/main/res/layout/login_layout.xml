@@ -42,7 +42,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/get_started"
+                android:text="Hello!"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -55,7 +55,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/just_a_few_details_to_get_you_started"
+                android:text="Enter your account details."
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:layout_marginBottom="30dp"
@@ -64,27 +64,10 @@
                 />
 
             <AutoCompleteTextView
-                android:id="@+id/username"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:hint="Username"
-                android:background="@drawable/rounded_white"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:drawableStart="@drawable/ic_communication"
-                android:textSize="14sp"
-                android:drawablePadding="10dp"
-                android:paddingStart="10dp"
-                android:layout_marginBottom="10dp"
-                android:textColorHint="#a8a8a8"
-
-                />
-
-            <AutoCompleteTextView
                 android:id="@+id/userEmail"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:hint="@string/email"
+                android:hint="Username"
                 android:background="@drawable/rounded_white"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
@@ -113,45 +96,31 @@
                 android:textColorHint="#a8a8a8"
 
                 />
-            <AutoCompleteTextView
-                android:id="@+id/userCPassword"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:hint="@string/confirm_password"
-                android:textColorHint="#a8a8a8"
-                android:background="@drawable/rounded_white"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:drawableStart="@drawable/ic_books"
-                android:textSize="14sp"
-                android:drawablePadding="10dp"
-                android:paddingStart="10dp"
-                android:layout_marginBottom="10dp"
-
-                />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/terms"
-                android:layout_gravity="center"
-                android:paddingStart="5dp"
-                android:button="@drawable/radio_button"
-                android:textSize="12sp"
-                />
 
             <Button
-                android:id="@+id/ConfirmRegisterButton"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
+                android:textColor="@color/white"
+                android:text="LOGIN"
+                android:textStyle="normal"
+                android:background="@drawable/register_button"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/register_button"
-                android:text="Register"
-                android:textColor="@color/white"
                 android:textSize="18dp"
-                android:textStyle="normal" />
+                />
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="40dp"
+               android:gravity="center"
+               android:layout_gravity="center"
+               android:text="Register here."
+               android:textColor="@color/white"
+
+
+               />
+
         </LinearLayout>
     </ScrollView>
 
