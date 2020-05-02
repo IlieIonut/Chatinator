@@ -16,6 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import kotlinx.android.synthetic.main.test.*
+import kotlinx.android.synthetic.main.register.*
 import android.view.View
 import kotlin.math.log
 
@@ -43,14 +44,16 @@ class MainActivity : AppCompatActivity() {
                     null,
                     null,
                     null,
-                    sortColumn)
+                    null)
                 cursor.use {
                     if (it != null) {
-                        while (it.moveToNext()) {
-                            with(cursor){
+                        while(it.moveToNext()) {
+                            // Cycle through all records
+                            with(cursor) {
                                 val name_db = this?.getString(1)
                                 val pass_db = this?.getString(2)
-                                if(name.equals(name_db) && password.equals(pass_db))
+                                Log.d(TAG,name_db)
+                                if(name.equals(name_db) && password.equals(pass_db) )
                                 {
                                     setContentView(R.layout.activity_main)
                                 }
@@ -65,42 +68,49 @@ class MainActivity : AppCompatActivity() {
         RegisterButton.setOnClickListener(object : View.OnClickListener{
             override fun onClick(p0 : View?)
             {
-                val name = NameText.text.toString()
-                val password = PasswordText.text.toString()
+                setContentView(R.layout.register)
+                val name = RegisterName.text.toString()
+                val password = RegisterPass.text.toString()
+                val email = RegisterEmail.text.toString()
                 var existsAlready = false
 
-                val cursor = contentResolver.query(UsersContract.CONTENT_URI,
-                    null,
-                    null,
-                    null,
-                    sortColumn)
+                ConfirmRegisterButton.setOnClickListener(object : View.OnClickListener{
+                    override fun onClick(v: View?) {
+                        val cursor = contentResolver.query(UsersContract.CONTENT_URI,
+                            null,
+                            null,
+                            null,
+                            sortColumn)
 
-                cursor.use {
-                    if (it != null) {
-                        while (it.moveToNext()) {
-                            with(cursor){
-                                val name_db = this?.getString(1)
-                                val pass_db = this?.getString(2)
-                                if(name.equals(name_db) && password.equals(pass_db))
-                                {
-                                    existsAlready = true
+                        cursor.use {
+                            if (it != null) {
+                                while (it.moveToNext()) {
+                                    with(cursor){
+                                        val name_db = this?.getString(1)
+                                        val pass_db = this?.getString(2)
+                                        if(name.equals(name_db) && password.equals(pass_db))
+                                        {
+                                            existsAlready = true
+                                        }
+                                    }
                                 }
                             }
                         }
-                    }
-                }
 
-                if(!existsAlready)
-                {
-                    val values = ContentValues().apply{
-                        put(UsersContract.Columns.USERS_NAME, "Radu")
-                        put(UsersContract.Columns.USERS_PASS, "12345")
-                        put(UsersContract.Columns.USERS_EMAIL, "radu@email.com")
-                    }
+                        if(!existsAlready)
+                        {
+                            val values = ContentValues().apply{
+                                put(UsersContract.Columns.USERS_NAME, name)
+                                put(UsersContract.Columns.USERS_PASS, password)
+                                put(UsersContract.Columns.USERS_EMAIL, email)
+                            }
 
-                    contentResolver.insert(UsersContract.CONTENT_URI, values)
-                    setContentView(R.layout.activity_main)
-                }
+                            contentResolver.insert(UsersContract.CONTENT_URI, values)
+                            setContentView(R.layout.activity_main)
+                        }
+                    }
+                })
+
             }
         })
 //        val toolbar: Toolbar = findViewById(R.id.toolbar)
