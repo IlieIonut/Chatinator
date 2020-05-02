@@ -69,26 +69,27 @@ class MainActivity : AppCompatActivity() {
             override fun onClick(p0 : View?)
             {
                 setContentView(R.layout.register)
-                val name = RegisterName.text.toString()
-                val password = RegisterPass.text.toString()
-                val email = RegisterEmail.text.toString()
-                var existsAlready = false
 
                 ConfirmRegisterButton.setOnClickListener(object : View.OnClickListener{
                     override fun onClick(v: View?) {
+                        val name = RegisterName.text.toString()
+                        val password = RegisterPass.text.toString()
+                        val email = RegisterEmail.text.toString()
+                        var existsAlready = false
                         val cursor = contentResolver.query(UsersContract.CONTENT_URI,
                             null,
                             null,
                             null,
                             sortColumn)
-
                         cursor.use {
                             if (it != null) {
                                 while (it.moveToNext()) {
                                     with(cursor){
                                         val name_db = this?.getString(1)
                                         val pass_db = this?.getString(2)
-                                        if(name.equals(name_db) && password.equals(pass_db))
+                                        Log.d(TAG,name_db)
+                                        Log.d(TAG,name)
+                                        if(name == name_db && password == pass_db)
                                         {
                                             existsAlready = true
                                         }
@@ -96,7 +97,7 @@ class MainActivity : AppCompatActivity() {
                                 }
                             }
                         }
-
+                        Log.d(TAG,existsAlready.toString())
                         if(!existsAlready)
                         {
                             val values = ContentValues().apply{
