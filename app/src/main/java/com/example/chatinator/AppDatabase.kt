@@ -12,7 +12,7 @@ import java.lang.IllegalStateException
 */
 
 private const val TAG = "AppDatabase"
-private const val DATABASE_NAME = "Users.db"
+private const val DATABASE_NAME = "Chatinator.db"
 private const val DATABASE_VERSION = 1
 
 internal class AppDatabase private constructor(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION){
@@ -22,11 +22,29 @@ internal class AppDatabase private constructor(context: Context): SQLiteOpenHelp
 
     override fun onCreate(db: SQLiteDatabase) {
         Log.d(TAG,"OnCreate: starts")
-        val sSQL = """CREATE TABLE ${UsersContract.TABLE_NAME} (
+        var sSQL = """CREATE TABLE ${UsersContract.TABLE_NAME} (
             ${UsersContract.Columns.ID} INTEGER PRIMARY KEY NOT NULL, 
             ${UsersContract.Columns.USERS_NAME} TEXT NOT NULL, 
             ${UsersContract.Columns.USERS_PASS} TEXT NOT NULL, 
-            ${UsersContract.Columns.USERS_EMAIL} TEXT NOT NULL);""".replaceIndent(" ")
+            ${UsersContract.Columns.USERS_EMAIL} TEXT NOT NULL,
+            ${UsersContract.Columns.PROJECT_ID} INTEGER);""".replaceIndent(" ")
+        Log.d(TAG, sSQL)
+        db.execSQL(sSQL)
+
+        sSQL = """CREATE TABLE ${ProjectsContract.TABLE_NAME} (
+            ${ProjectsContract.Columns.ID} INTEGER PRIMARY KEY NOT NULL,
+            ${ProjectsContract.Columns.PROJECTS_NAME} TEXT NOT NULL,
+            ${ProjectsContract.Columns.PROJECTS_WORKERS} INTEGER NOT NULL,
+            ${ProjectsContract.Columns.PROJECTS_TASKS} INTEGER NOT NULL,
+            ${ProjectsContract.Columns.COMPANY_ID} INTEGER NOT NULL);""".replaceIndent(" ")
+        Log.d(TAG, sSQL)
+        db.execSQL(sSQL)
+
+        sSQL ="""CREATE TABLE ${CompaniesContract.TABLE_NAME} (
+            ${CompaniesContract.Columns.ID} INTEGER PRIMARY KEY NOT NULL,
+            ${CompaniesContract.Columns.COMPANIES_NAME} TEXT NOT NULL,
+            ${CompaniesContract.Columns.COMPANIES_EMPLOYEES} INTEGER NOT NULL,
+            ${CompaniesContract.Columns.COMPANIES_PROJECT} TEXT NOT NULL);""".replaceIndent(" ")
         Log.d(TAG, sSQL)
         db.execSQL(sSQL)
     }
