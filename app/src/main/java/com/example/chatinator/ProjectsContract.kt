@@ -7,10 +7,10 @@ import android.provider.BaseColumns
 object ProjectsContract {
 
     internal const val TABLE_NAME = "Projects"
-    val CONTENT_URI: Uri = Uri.withAppendedPath(CONTENT_AUTHORITY_URI, UsersContract.TABLE_NAME)
+    val CONTENT_URI: Uri = Uri.withAppendedPath(CONTENT_AUTHORITY_URI, TABLE_NAME)
 
-    const val CONTENT_TYPE = "vnd.android.cursor.dir/vnd.$CONTENT_AUTHORITY.${UsersContract.TABLE_NAME}"
-    const val CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.$CONTENT_AUTHORITY.${UsersContract.TABLE_NAME}"
+    const val CONTENT_TYPE = "vnd.android.cursor.dir/vnd.$CONTENT_AUTHORITY.$TABLE_NAME"
+    const val CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.$CONTENT_AUTHORITY.$TABLE_NAME"
 
     object Columns{
         const val ID = BaseColumns._ID
@@ -25,6 +25,6 @@ object ProjectsContract {
     }
 
     fun buildUriFromId(id: Long): Uri{
-        return ContentUris.withAppendedId(UsersContract.CONTENT_URI,id)
+        return ContentUris.withAppendedId(CONTENT_URI,id)
     }
 }

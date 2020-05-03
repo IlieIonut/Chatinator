@@ -2,6 +2,7 @@ package com.example.chatinator
 
 import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import kotlin.math.log
 
 private  const val TAG = "MainActivity"
 
@@ -28,6 +30,34 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         window.setBackgroundDrawableResource(R.drawable.background)
         setContentView(R.layout.login_layout)
+
+        val values = ContentValues().apply {
+            put(ProjectsContract.Columns.PROJECTS_NAME, "AltProiect")
+            put(ProjectsContract.Columns.PROJECTS_WORKERS, 5)
+            put(ProjectsContract.Columns.PROJECTS_TASKS, 10)
+            put(ProjectsContract.Columns.COMPANY_ID, 1)
+        }
+
+        val uri = contentResolver.insert(ProjectsContract.CONTENT_URI, values)
+        Log.d(TAG,uri.toString())
+
+        val test = contentResolver.query(uri!!,
+        null,
+        null,
+        null,
+        null)
+
+        test.use {
+            if (it != null) {
+                while (it.moveToNext()) {
+                    // Cycle through all records
+                    with(test) {
+                        val name = this?.getString(1)
+                        Log.d(TAG,name)
+                    }
+                }
+            }
+        }
 
         LoginButton.setOnClickListener(object : View.OnClickListener{
             override fun onClick(p0 : View?)

@@ -73,7 +73,7 @@ class AppProvider: ContentProvider() {
                 recordId = db.insert(ProjectsContract.TABLE_NAME,null,values)
                 if(recordId != -1L)
                 {
-                    returnUri = UsersContract.buildUriFromId(recordId)
+                    returnUri = ProjectsContract.buildUriFromId(recordId)
                 }
                 else
                 {
@@ -86,7 +86,7 @@ class AppProvider: ContentProvider() {
                 recordId = db.insert(CompaniesContract.TABLE_NAME,null,values)
                 if(recordId != -1L)
                 {
-                    returnUri = UsersContract.buildUriFromId(recordId)
+                    returnUri = CompaniesContract.buildUriFromId(recordId)
                 }
                 else
                 {
