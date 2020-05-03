@@ -178,11 +178,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun ColaboratoriClick (Button: View){
-        setContentView(R.layout.login_layout)
+        setContentView(R.layout.menu_layout)
     }
 
     fun ProiecteClick (Button: View){
-        setContentView(R.layout.login_layout)
+        setContentView(R.layout.menu_layout)
     }
 
 
