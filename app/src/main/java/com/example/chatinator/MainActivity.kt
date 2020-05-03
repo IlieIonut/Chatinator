@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        window.setBackgroundDrawableResource(R.drawable.background)
         setContentView(R.layout.login_layout)
 
         LoginButton.setOnClickListener(object : View.OnClickListener{

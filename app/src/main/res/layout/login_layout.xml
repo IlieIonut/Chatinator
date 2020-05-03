@@ -104,7 +104,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/register_button"
                 android:text="LOGIN"
                 android:textColor="@color/white"
@@ -114,13 +114,14 @@
             <TextView
                 android:id="@+id/RegisterButton"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="Register here."
+                android:layout_marginBottom="10dp"
 
 
-                android:textColor="@color/white" />
+                android:textColor="#1c11b8" />
 
         </LinearLayout>
     </ScrollView>
