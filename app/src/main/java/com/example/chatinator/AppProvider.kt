@@ -17,6 +17,12 @@ const val CONTENT_AUTHORITY = "com.example.chatinator.provider"
 private  const val USERS = 100
 private const val USERS_ID = 101
 
+private const val PROJECTS = 200
+private const val PROJECTS_ID = 201
+
+private const val COMPANIES = 300
+private const val COMPANIES_ID = 301
+
 val CONTENT_AUTHORITY_URI: Uri = Uri.parse("content://$CONTENT_AUTHORITY")
 
 class AppProvider: ContentProvider() {
@@ -29,12 +35,14 @@ class AppProvider: ContentProvider() {
 
         //e.g content://com.example.chatinator.provider/Users
         matcher.addURI(CONTENT_AUTHORITY,UsersContract.TABLE_NAME, USERS)
-
         //e.g content://com.example.chatinator.provider/Users/8
         matcher.addURI(CONTENT_AUTHORITY,"${UsersContract.TABLE_NAME}/#", USERS_ID)
 
-//        matcher.addURI(CONTENT_AUTHORITY,UsersContract.TABLE_NAME, USERS)
-//        matcher.addURI(CONTENT_AUTHORITY,"${UsersContract.TABLE_NAME}/#", USERS_ID)
+        matcher.addURI(CONTENT_AUTHORITY,ProjectsContract.TABLE_NAME, PROJECTS)
+        matcher.addURI(CONTENT_AUTHORITY,"${ProjectsContract.TABLE_NAME}/#", PROJECTS_ID)
+
+        matcher.addURI(CONTENT_AUTHORITY,CompaniesContract.TABLE_NAME, COMPANIES)
+        matcher.addURI(CONTENT_AUTHORITY,"${CompaniesContract.TABLE_NAME}/#", COMPANIES_ID)
 
         return matcher
     }
@@ -51,6 +59,31 @@ class AppProvider: ContentProvider() {
             USERS ->{
                 val db = AppDatabase.getInstance(context!!).writableDatabase
                 recordId = db.insert(UsersContract.TABLE_NAME,null,values)
+                if(recordId != -1L)
+                {
+                    returnUri = UsersContract.buildUriFromId(recordId)
+                }
+                else
+                {
+                    throw SQLException("Failed to insert, Uri was $uri")
+                }
+            }
+            PROJECTS ->{
+                val db = AppDatabase.getInstance(context!!).writableDatabase
+                recordId = db.insert(ProjectsContract.TABLE_NAME,null,values)
+                if(recordId != -1L)
+                {
+                    returnUri = UsersContract.buildUriFromId(recordId)
+                }
+                else
+                {
+                    throw SQLException("Failed to insert, Uri was $uri")
+                }
+            }
+
+            COMPANIES ->{
+                val db = AppDatabase.getInstance(context!!).writableDatabase
+                recordId = db.insert(CompaniesContract.TABLE_NAME,null,values)
                 if(recordId != -1L)
                 {
                     returnUri = UsersContract.buildUriFromId(recordId)
@@ -89,6 +122,24 @@ class AppProvider: ContentProvider() {
                 queryBuilder.appendWhere("${UsersContract.Columns.ID} = ")
                 queryBuilder.appendWhereEscapeString("$userId")
             }
+
+            PROJECTS -> queryBuilder.tables = ProjectsContract.TABLE_NAME
+
+            PROJECTS_ID -> {
+                queryBuilder.tables = ProjectsContract.TABLE_NAME
+                val projectId = ProjectsContract.getId(uri)
+                queryBuilder.appendWhere("${UsersContract.Columns.ID} = ")
+                queryBuilder.appendWhereEscapeString("$projectId")
+            }
+
+            COMPANIES -> queryBuilder.tables = CompaniesContract.TABLE_NAME
+
+            COMPANIES_ID -> {
+                queryBuilder.tables = CompaniesContract.TABLE_NAME
+                val companyId = CompaniesContract.getId(uri)
+                queryBuilder.appendWhere("${UsersContract.Columns.ID} = ")
+                queryBuilder.appendWhereEscapeString("$companyId")
+            }
             else -> throw IllegalArgumentException("Unknown URI: $uri")
         }
 
@@ -124,6 +175,14 @@ class AppProvider: ContentProvider() {
             USERS -> UsersContract.CONTENT_TYPE
 
             USERS_ID -> UsersContract.CONTENT_ITEM_TYPE
+
+            PROJECTS -> ProjectsContract.CONTENT_TYPE
+
+            PROJECTS_ID -> ProjectsContract.CONTENT_ITEM_TYPE
+
+            COMPANIES -> CompaniesContract.CONTENT_TYPE
+
+            COMPANIES_ID -> CompaniesContract.CONTENT_ITEM_TYPE
 
             else -> throw IllegalArgumentException("unknown Uri: $uri")
         }

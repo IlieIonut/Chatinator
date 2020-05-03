@@ -22,6 +22,7 @@ object UsersContract {
          const val USERS_NAME = "Name"
          const val USERS_PASS = "Pass"
          const val USERS_EMAIL = "Email"
+         const val PROJECT_ID = "ProjectID"
     }
 
     fun getId(uri: Uri): Long{
