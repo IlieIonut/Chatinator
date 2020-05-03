@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.login_layout.*
 import kotlinx.android.synthetic.main.register_layout.*
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -75,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
-
+                setContentView(R.layout.menu_layout)
             }
         })
 
@@ -151,6 +152,41 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+
+    fun CompaniiClick (Button: View){
+        setContentView(R.layout.companii_layout)
+
+        val cursor = contentResolver.query(
+                UsersContract.CONTENT_URI,
+                null,
+                null,
+                null,
+                null
+        )
+
+        cursor.use {
+            if (it != null) {
+                while (it.moveToNext()) {
+                    with(cursor) {
+                        val nameDb = this?.getString(1)
+                        Toast.makeText(applicationContext, nameDb, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+
+        Toast.makeText(applicationContext, "Companii Layout", Toast.LENGTH_SHORT).show()
+
+    }
+
+    fun ColaboratoriClick (Button: View){
+        setContentView(R.layout.menu_layout)
+    }
+
+    fun ProiecteClick (Button: View){
+        setContentView(R.layout.menu_layout)
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
