@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             override fun onClick(p0 : View?)
             {
                 val name = usernameLogin.text.toString()
-                val password = passwordLogin.text.toString() 
+                val password = passwordLogin.text.toString()
 
                 val cursor = contentResolver.query(UsersContract.CONTENT_URI,
                     null,
