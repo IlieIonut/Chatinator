@@ -66,7 +66,7 @@
                 />
 
             <AutoCompleteTextView
-                android:id="@+id/username"
+                android:id="@+id/usernameRegister"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:hint="Username"
@@ -83,7 +83,7 @@
                 />
 
             <AutoCompleteTextView
-                android:id="@+id/userEmail"
+                android:id="@+id/emailRegister"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:hint="@string/email"
@@ -99,7 +99,7 @@
 
                 />
             <AutoCompleteTextView
-                android:id="@+id/userPassword"
+                android:id="@+id/passwordRegister"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:hint="@string/password"
@@ -116,7 +116,7 @@
 
                 />
             <AutoCompleteTextView
-                android:id="@+id/userCPassword"
+                android:id="@+id/passwordConfirm"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:hint="@string/confirm_password"
