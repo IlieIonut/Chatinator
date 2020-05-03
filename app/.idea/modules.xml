@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../Chatinator.iml" filepath="$PROJECT_DIR$/../Chatinator.iml" group="Chatinator" />
+      <module fileurl="file://$PROJECT_DIR$/Chatinator-app.iml" filepath="$PROJECT_DIR$/Chatinator-app.iml" group="Chatinator/app" />
+      <module fileurl="file://$PROJECT_DIR$/../GitHub-Chatinator.iml" filepath="$PROJECT_DIR$/../GitHub-Chatinator.iml" group="Chatinator" />
       <module fileurl="file://$PROJECT_DIR$/app.iml" filepath="$PROJECT_DIR$/app.iml" group="Chatinator/app" />
     </modules>
   </component>
