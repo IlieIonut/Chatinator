@@ -22,6 +22,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.companii_layout.*
 import kotlin.math.log
 
 private  const val TAG = "MainActivity"
@@ -79,6 +80,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
+                setContentView(R.layout.menu_layout)
             }
         })
 
@@ -159,24 +161,49 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.companii_layout)
 
         val cursor = contentResolver.query(
-                UsersContract.CONTENT_URI,
+               CompaniesContract.CONTENT_URI,
                 null,
                 null,
                 null,
                 null
         )
 
+        var companies = ArrayList<Company>()
+
+//        val values = ContentValues().apply {
+//            put(CompaniesContract.Columns.COMPANIES_NAME, "SOFTBIN")
+//            put(CompaniesContract.Columns.COMPANIES_EMPLOYEES, 15)
+//            put(CompaniesContract.Columns.COMPANIES_PROJECT, 5)
+//        }
+//
+//        contentResolver.insert(CompaniesContract.CONTENT_URI, values)
+
         cursor.use {
             if (it != null) {
                 while (it.moveToNext()) {
                     with(cursor) {
-                        val nameDb = this?.getString(1)
-                        Toast.makeText(applicationContext, nameDb, Toast.LENGTH_SHORT).show()
+                        val newCompany = Company()
+                        newCompany.name = this?.getString(1).toString()
+                        newCompany.employees = this?.getInt(2)!!
+                        newCompany.projects = this?.getInt(3)
+                        companies.add(newCompany)
+
                     }
                 }
             }
         }
 
+        if (companies.size!=0) {
+            var company = Company()
+            for (company in companies) {
+                companie1txt.setText(company.name)
+            }
+        }
+        else {
+            companie1txt.visibility = View.GONE
+            companie2txt.visibility = View.GONE
+            companie3txt.visibility = View.GONE
+        }
         Toast.makeText(applicationContext, "Companii Layout", Toast.LENGTH_SHORT).show()
 
     }
