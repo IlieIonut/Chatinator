@@ -8,7 +8,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.login_layout.*
 import kotlinx.android.synthetic.main.register_layout.*
+import kotlinx.android.synthetic.main.projects_layout.*
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -52,31 +55,30 @@ class MainActivity : AppCompatActivity() {
                                 val passDb = this?.getString(2)
                                 if(name == nameDb && password == passDb)
                                 {
-                                    setContentView(R.layout.activity_main)
-                                    window.setBackgroundDrawableResource(R.drawable.background)
-                                    val toolbar: Toolbar = findViewById(R.id.toolbar)
-                                    setSupportActionBar(toolbar)
-
-                                    val fab: FloatingActionButton = findViewById(R.id.fab)
-                                    fab.setOnClickListener { view ->
-                                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                                            .setAction("Action", null).show()
-                                    }
-                                    val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-                                    val navView: NavigationView = findViewById(R.id.nav_view)
-                                    val navController = findNavController(R.id.nav_host_fragment)
-                                    // Passing each menu ID as a set of Ids because each
-                                    // menu should be considered as top level destinations.
-                                    appBarConfiguration = AppBarConfiguration(setOf(
-                                        R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow), drawerLayout)
-                                    setupActionBarWithNavController(navController, appBarConfiguration)
-                                    navView.setupWithNavController(navController)
+                                    setContentView(R.layout.menu_layout)
+//                                    window.setBackgroundDrawableResource(R.drawable.background)
+//                                    val toolbar: Toolbar = findViewById(R.id.toolbar)
+//                                    setSupportActionBar(toolbar)
+//
+//                                    val fab: FloatingActionButton = findViewById(R.id.fab)
+//                                    fab.setOnClickListener { view ->
+//                                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                                            .setAction("Action", null).show()
+//                                    }
+//                                    val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+//                                    val navView: NavigationView = findViewById(R.id.nav_view)
+//                                    val navController = findNavController(R.id.nav_host_fragment)
+//                                    // Passing each menu ID as a set of Ids because each
+//                                    // menu should be considered as top level destinations.
+//                                    appBarConfiguration = AppBarConfiguration(setOf(
+//                                        R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow), drawerLayout)
+//                                    setupActionBarWithNavController(navController, appBarConfiguration)
+//                                    navView.setupWithNavController(navController)
                                 }
                             }
                         }
                     }
                 }
-                setContentView(R.layout.menu_layout)
             }
         })
 
@@ -183,8 +185,37 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.menu_layout)
     }
 
-    fun ProiecteClick (Button: View){
-        setContentView(R.layout.menu_layout)
+    fun projectClick (Button: View) {
+        setContentView(R.layout.projects_layout)
+        val cursor = contentResolver.query(
+            ProjectsContract.CONTENT_URI,
+            null,
+            null,
+            null,
+            null
+        )
+
+        val projects = ArrayList<Project>()
+
+        cursor.use {
+            if (it != null) {
+                while (it.moveToNext()) {
+                    // Cycle through all records
+                    with(cursor) {
+                        val newProject = Project()
+                        newProject.name = this?.getString(1).toString()
+                        newProject.workers = this?.getInt(2)!!
+                        newProject.tasks = this.getInt(3)
+                        newProject.company = this.getInt(4)
+                        projects.add(newProject)
+                    }
+                }
+
+                val projectAdapter = ProjectsAdapter(this, R.layout.project_item, projects)
+                ListView.adapter = projectAdapter
+
+            }
+        }
     }
 
 
