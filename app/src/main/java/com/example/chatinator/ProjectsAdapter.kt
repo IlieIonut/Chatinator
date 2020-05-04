@@ -8,6 +8,10 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import org.w3c.dom.Text
 
+class ViewHolder(v : View){
+    val textView : TextView = v.findViewById(R.id.projectTextView)
+}
+
 class ProjectsAdapter(context: Context, private val resource: Int, private val projects: List<Project>) : ArrayAdapter<Project>(context,resource) {
     private val inflater = LayoutInflater.from(context)
 
@@ -16,13 +20,25 @@ class ProjectsAdapter(context: Context, private val resource: Int, private val p
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = inflater.inflate(resource,parent,false)
 
-        val textView: TextView = view.findViewById(R.id.projectTextView)
+        val view : View
+        val viewHolder : ViewHolder
+
+        if(convertView == null)
+        {
+            view = inflater.inflate(resource,parent,false)
+            viewHolder = ViewHolder(view)
+            view.tag = viewHolder
+        }
+        else
+        {
+            view = convertView
+            viewHolder = view.tag as ViewHolder
+        }
 
         val currentProject = projects[position]
 
-        textView.text = currentProject.toString()
+        viewHolder.textView.text = currentProject.toString()
 
         return view
     }
