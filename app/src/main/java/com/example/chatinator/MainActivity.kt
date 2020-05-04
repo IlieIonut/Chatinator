@@ -1,8 +1,8 @@
 package com.example.chatinator
 
+import android.app.ActionBar
 import android.content.ContentValues
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.appcompat.app.AppCompatActivity
@@ -10,10 +10,9 @@ import kotlinx.android.synthetic.main.login_layout.*
 import kotlinx.android.synthetic.main.register_layout.*
 import kotlinx.android.synthetic.main.projects_layout.*
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.size
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.navigateUp
@@ -23,7 +22,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.companii_layout.*
-import kotlin.math.log
 
 private  const val TAG = "MainActivity"
 
@@ -170,10 +168,13 @@ class MainActivity : AppCompatActivity() {
 
         var companies = ArrayList<Company>()
 
+
+
+
 //        val values = ContentValues().apply {
-//            put(CompaniesContract.Columns.COMPANIES_NAME, "SOFTBIN")
-//            put(CompaniesContract.Columns.COMPANIES_EMPLOYEES, 15)
-//            put(CompaniesContract.Columns.COMPANIES_PROJECT, 5)
+//            put(CompaniesContract.Columns.COMPANIES_NAME, "D&D")
+//            put(CompaniesContract.Columns.COMPANIES_EMPLOYEES, 2)
+//            put(CompaniesContract.Columns.COMPANIES_PROJECT, 3)
 //        }
 //
 //        contentResolver.insert(CompaniesContract.CONTENT_URI, values)
@@ -193,18 +194,36 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
         if (companies.size!=0) {
             var company = Company()
             for (company in companies) {
-                companie1txt.setText(company.name)
+
+                val companyNameTxt = TextView(this)
+                val companyEmployeesTxt = TextView (this)
+                val companyProjectsTxt = TextView(this)
+                val newLayoutCompany = LinearLayout(this)
+                newLayoutCompany.orientation = LinearLayout.HORIZONTAL
+
+                companyNameTxt.textSize = 20f
+                companyEmployeesTxt.textSize = 20f
+                companyProjectsTxt.textSize = 20f
+
+                companyNameTxt.text = company.name.toString()
+                companyEmployeesTxt.text = company.employees.toString()
+                companyProjectsTxt.text = company.projects.toString()
+
+                newLayoutCompany.addView(companyNameTxt)
+                newLayoutCompany.addView(companyEmployeesTxt)
+                newLayoutCompany.addView(companyProjectsTxt)
+
+                ll_company_layout.addView(newLayoutCompany)
             }
         }
         else {
-            companie1txt.visibility = View.GONE
-            companie2txt.visibility = View.GONE
-            companie3txt.visibility = View.GONE
+            Toast.makeText(applicationContext, "0 Companii", Toast.LENGTH_LONG).show()
         }
-        Toast.makeText(applicationContext, "Companii Layout", Toast.LENGTH_SHORT).show()
+
 
     }
 
