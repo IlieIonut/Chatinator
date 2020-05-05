@@ -1,7 +1,6 @@
 package com.example.chatinator
 
-class Project {
-     var name = ""
+class Project : DatabaseElement() {
      var workers = 0
      var tasks = 0
      var company = 0
