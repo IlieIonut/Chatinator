@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import org.w3c.dom.Text
 
 class ViewHolder(v : View){
     val textView : TextView = v.findViewById(R.id.projectTextView)
