@@ -1,19 +1,21 @@
 package com.example.chatinator
 
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.View
-import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.companii_layout.*
+import kotlinx.android.synthetic.main.companies_layout.*
 import kotlinx.android.synthetic.main.projects_layout.*
 
 class Menu_Activity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private val TAG = "MenuActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +55,7 @@ class Menu_Activity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    fun projectClick (Button: View) {
+    fun projectClick(Button: View) {
         setContentView(R.layout.projects_layout)
         val cursor = contentResolver.query(
             ProjectsContract.CONTENT_URI,
@@ -78,21 +80,20 @@ class Menu_Activity : AppCompatActivity() {
                         projects.add(newProject)
                     }
                 }
-
-                val projectAdapter = ProjectsAdapter(this, R.layout.project_item, projects)
-                ListView.adapter = projectAdapter
+                Log.d(TAG,"creating adapter for projects")
+                val projectAdapter = CustomAdapter(this, R.layout.project_item, projects, 1)
+                projectsListView.adapter = projectAdapter
 
             }
         }
     }
 
-    fun collaboratorsClick (Button: View){
+    fun collaboratorsClick(Button: View) {
         setContentView(R.layout.menu_layout)
     }
 
-    fun companyClick (Button: View){
-        setContentView(R.layout.companii_layout)
-
+    fun companyClick(Button: View) {
+        setContentView(R.layout.companies_layout)
         val cursor = contentResolver.query(
             CompaniesContract.CONTENT_URI,
             null,
@@ -124,20 +125,10 @@ class Menu_Activity : AppCompatActivity() {
                     }
                 }
             }
+            Log.d(TAG,"creating adapter for companies")
+            val companyAdapter = CustomAdapter(this, R.layout.companies_item, companies,2)
+            companiesListView.adapter = companyAdapter
         }
-
-        if (companies.size!=0) {
-            var company = Company()
-            for (company in companies) {
-                companie1txt.setText(company.name)
-            }
-        }
-        else {
-            companie1txt.visibility = View.GONE
-            companie2txt.visibility = View.GONE
-            companie3txt.visibility = View.GONE
-        }
-        Toast.makeText(applicationContext, "Companii Layout", Toast.LENGTH_SHORT).show()
-
     }
 }
+
