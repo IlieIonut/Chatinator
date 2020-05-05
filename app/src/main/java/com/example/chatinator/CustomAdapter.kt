@@ -12,6 +12,7 @@ class ViewHolder(view : View){
     val view = view
     var projectTextView : TextView? = null
     var companyTextView : TextView? = null
+    var userTextView : TextView? = null
 
     fun decideTypeOfHolder(typeOfHolder : Int){
         when(typeOfHolder)
@@ -21,6 +22,9 @@ class ViewHolder(view : View){
             }
             2 -> {
                 companyTextView = view.findViewById(R.id.companyTextView)
+            }
+            3 ->{
+                userTextView = view.findViewById(R.id.collaboratorTextView)
             }
         }
     }
@@ -64,6 +68,9 @@ class CustomAdapter(context: Context, private val resource: Int, private val arr
             }
             2 ->{
                 viewHolder.companyTextView?.text = currentItem.toString()
+            }
+            3 -> {
+                viewHolder.userTextView?.text = currentItem.toString()
             }
         }
         return view
