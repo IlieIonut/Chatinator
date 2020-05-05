@@ -78,7 +78,6 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
-                setContentView(R.layout.menu_layout)
             }
         })
 
@@ -169,8 +168,6 @@ class MainActivity : AppCompatActivity() {
         var companies = ArrayList<Company>()
 
 
-
-
 //        val values = ContentValues().apply {
 //            put(CompaniesContract.Columns.COMPANIES_NAME, "D&D")
 //            put(CompaniesContract.Columns.COMPANIES_EMPLOYEES, 2)
@@ -196,29 +193,8 @@ class MainActivity : AppCompatActivity() {
 
 
         if (companies.size!=0) {
-            var company = Company()
-            for (company in companies) {
-
-                val companyNameTxt = TextView(this)
-                val companyEmployeesTxt = TextView (this)
-                val companyProjectsTxt = TextView(this)
-                val newLayoutCompany = LinearLayout(this)
-                newLayoutCompany.orientation = LinearLayout.HORIZONTAL
-
-                companyNameTxt.textSize = 20f
-                companyEmployeesTxt.textSize = 20f
-                companyProjectsTxt.textSize = 20f
-
-                companyNameTxt.text = company.name.toString()
-                companyEmployeesTxt.text = company.employees.toString()
-                companyProjectsTxt.text = company.projects.toString()
-
-                newLayoutCompany.addView(companyNameTxt)
-                newLayoutCompany.addView(companyEmployeesTxt)
-                newLayoutCompany.addView(companyProjectsTxt)
-
-                ll_company_layout.addView(newLayoutCompany)
-            }
+            val companyAdapter = CompaniesAdapter(this, R.layout.company_item, companies)
+            ListCompaniesView.adapter = companyAdapter
         }
         else {
             Toast.makeText(applicationContext, "0 Companii", Toast.LENGTH_LONG).show()
