@@ -20,14 +20,14 @@
             android:id="@+id/CompaniiButton"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:onClick="CompaniiClick"
+            android:onClick="companyClick"
             android:text="Companii" />
 
         <Button
             android:id="@+id/ColaboratoriButton"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:onClick="ColaboratoriClick"
+            android:onClick="collaboratorsClick"
             android:text="Colaboratori" />
 
         <Button
