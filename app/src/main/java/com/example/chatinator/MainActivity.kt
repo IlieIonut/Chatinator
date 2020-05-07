@@ -2,7 +2,7 @@ package com.example.chatinator
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -13,7 +13,7 @@ private  const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity() {
 
-    private val currentUser: FirebaseUser? = null
+    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,42 +38,38 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
+        val currentUser : FirebaseUser? = firebaseAuth.currentUser
+        Log.d(TAG,"Current user is ${currentUser.toString()}")
+
         if(currentUser == null)
         {
-            LoginButton.setOnClickListener(object : View.OnClickListener{
-                override fun onClick(p0 : View?)
-                {
-                    val name = usernameLogin.text.toString()
-                    val password = passwordLogin.text.toString()
+            LoginButton.setOnClickListener {
+                 val email = emailLogin.text.toString()
+                 val password = passwordLogin.text.toString()
 
-                    val cursor = contentResolver.query(UsersContract.CONTENT_URI,
-                        null,
-                        null,
-                        null,
-                        null)
-                    cursor.use {
-                        if (it != null) {
-                            while (it.moveToNext()) {
-                                // Cycle through all records
-                                with(cursor) {
-                                    val nameDb = this?.getString(1)
-                                    val passDb = this?.getString(2)
-                                    if (name == nameDb && password == passDb) {
-                                        startActivity(Intent(this@MainActivity,Menu_Activity::class.java))
-                                    }
-                                }
-                            }
+                firebaseAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this@MainActivity
+                    ) { task ->
+                        if (task.isSuccessful) {
+                            // Sign in success, update UI with the signed-in user's information
+                            val user: FirebaseUser? = firebaseAuth.currentUser
+                            Log.d(TAG,"Current user is ${user.toString()}")
+                            startActivity(Intent(this@MainActivity,Menu_Activity::class.java))
+                            //                            updateUI(user)
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            //updateUI(null)
                         }
-                    }
-                }
-            })
 
-            RegisterButton.setOnClickListener(object : View.OnClickListener{
-                override fun onClick(p0 : View?)
-                {
-                    startActivity(Intent(this@MainActivity,RegisterActivity::class.java))
-                }
-            })
+                        // ...
+                    }
+            }
+
+            RegisterButton.setOnClickListener { startActivity(Intent(this@MainActivity,RegisterActivity::class.java)) }
+        }
+        else
+        {
+            startActivity(Intent(this@MainActivity,Menu_Activity::class.java))
         }
     }
 }

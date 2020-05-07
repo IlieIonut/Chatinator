@@ -2,42 +2,31 @@ package com.example.chatinator
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.projects_layout.*
+import android.util.Log
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class ProjectActivity : AppCompatActivity() {
+    private val TAG = "ProjectActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.projects_layout)
 
-        val cursor = contentResolver.query(
-            ProjectsContract.CONTENT_URI,
-            null,
-            null,
-            null,
-            null
-        )
+        val projectsDatabase : DatabaseReference = FirebaseDatabase.getInstance().getReference("projects")
+        Log.d(TAG,"project database reference is $projectsDatabase")
 
-        val projects = ArrayList<Project>()
+        val id : String? = projectsDatabase.push().key
 
-        cursor.use {
-            if (it != null) {
-                while (it.moveToNext()) {
-                    // Cycle through all records
-                    with(cursor) {
-                        val newProject = Project()
-                        newProject.name = this?.getString(1).toString()
-                        newProject.workers = this?.getInt(2)!!
-                        newProject.tasks = this.getInt(3)
-                        newProject.company = this.getInt(4)
-                        projects.add(newProject)
-                    }
-                }
-                val projectAdapter = CustomAdapter(this, R.layout.project_item, projects, 1)
-                projectsListView.adapter = projectAdapter
+        val project = Project(id!!,"Project",1,1,1)
+
+        projectsDatabase.child(id).setValue(project)
+
+//                val projectAdapter = CustomAdapter(this, R.layout.project_item, projects, 1)
+//                projectsListView.adapter = projectAdapter
 
             }
         }
-    }
-}
+
+
