@@ -8,13 +8,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 
 class Menu_Activity : AppCompatActivity() {
 
@@ -58,15 +51,15 @@ class Menu_Activity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    fun projectClick(Button: View) {
+    fun projectClick(Button : View) {
         startActivity(Intent(this@Menu_Activity,ProjectActivity::class.java))
     }
 
-    fun collaboratorsClick(Button: View) {
+    fun collaboratorsClick(Button : View) {
         startActivity(Intent(this@Menu_Activity,CollaboratorActivity::class.java))
     }
 
-    fun companyClick(Button: View) {
+    fun companyClick(Button : View) {
         startActivity(Intent(this@Menu_Activity,CompanyActivity::class.java))
     }
 }
