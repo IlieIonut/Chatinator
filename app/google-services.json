@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1051386021477",
+    "firebase_url": "https://chatinator-bc830.firebaseio.com",
+    "project_id": "chatinator-bc830",
+    "storage_bucket": "chatinator-bc830.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1051386021477:android:a6a25627d3c70497d8688c",
+        "android_client_info": {
+          "package_name": "com.example.chatinator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1051386021477-sthdo6fbtgqfliai9cu05a5tr0ajstmt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.chatinator",
+            "certificate_hash": "2c42109045359e7136b5cb1e43580758d40a6758"
+          }
+        },
+        {
+          "client_id": "1051386021477-afrdls66c7vb6f4akjbce4vv2cpr1lq5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeu44rxaCPZ5UdIpQFLXk0H5doqtmWGjU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1051386021477-afrdls66c7vb6f4akjbce4vv2cpr1lq5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
