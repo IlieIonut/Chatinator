@@ -1,5 +1,5 @@
 package com.example.chatinator
 
-open class DatabaseElement {
-    var name = ""
+open class DatabaseElement (name : String) {
+    var name = name
 }

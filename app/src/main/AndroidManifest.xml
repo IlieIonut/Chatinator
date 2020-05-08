@@ -28,10 +28,6 @@
             </intent-filter>
         </activity>
 
-        <provider
-            android:name=".AppProvider"
-            android:authorities="com.example.chatinator.provider"
-            android:exported="false" />
     </application>
 
 </manifest>

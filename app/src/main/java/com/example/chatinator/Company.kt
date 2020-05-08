@@ -1,8 +1,11 @@
 package com.example.chatinator
 
-class Company : DatabaseElement() {
-    var employees = 0
-    var projects = 0
+class Company(id :  String, name : String, employees : Int, projects : Int) : DatabaseElement(name) {
+    var employees = employees
+    var projects = projects
+    var id = id
+
+    constructor() : this("","",0,0) {}
 
     override fun toString(): String {
         return """

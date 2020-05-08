@@ -1,15 +1,10 @@
 package com.example.chatinator
 
-import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.register_layout.*
@@ -17,7 +12,7 @@ import kotlinx.android.synthetic.main.register_layout.*
 
 class RegisterActivity : AppCompatActivity() {
 
-    private val mAuth: FirebaseAuth = FirebaseAuth.getInstance();
+    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance();
     private val TAG = "RegisterActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,24 +34,22 @@ class RegisterActivity : AppCompatActivity() {
 
                 if(password == confirmPassword) {
 
-                    if (mAuth != null) {
-                        mAuth.createUserWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(this@RegisterActivity,
-                                OnCompleteListener<AuthResult?> { task ->
-                                    if (task.isSuccessful) {
-                                        // Sign in success, update UI with the signed-in user's information
-//                                        val user: FirebaseUser? = mAuth.getCurrentUser()
-                                        Log.d(TAG,"User registered")
-                                        startActivity(Intent(this@RegisterActivity,Menu_Activity::class.java))
-//                                        updateUI(user)
-                                    } else {
-                                        // If sign in fails, display a message to the user.
-                                        val message = task.exception.toString()
-                                        Log.d(TAG,message)
-                                    }
+                    firebaseAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(this@RegisterActivity
+                        ) { task ->
+                            if (task.isSuccessful) {
+                                // Sign in success, update UI with the signed-in user's information
+                                val user: FirebaseUser? = firebaseAuth.currentUser
+                                Log.d(TAG,"User registered, currentUser is $user")
+                                startActivity(Intent(this@RegisterActivity,Menu_Activity::class.java))
+                    //                                        updateUI(user)
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                val message = task.exception.toString()
+                                Log.d(TAG,message)
+                            }
 
-                                })
-                    }
+                        }
                 }
             }
         })
