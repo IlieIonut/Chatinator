@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/menuLayout"
+    >
 
     <LinearLayout
-        android:layout_width="245dp"
+        android:layout_width="350dp"
         android:layout_height="361dp"
         android:orientation="vertical"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,36 +21,84 @@
 
         <Button
             android:id="@+id/CompaniiButton"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/menu_buttons"
+            android:drawableStart="@drawable/ic_growth"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:onClick="companyClick"
             android:text="Companii" />
-
         <Button
             android:id="@+id/ColaboratoriButton"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/menu_buttons"
+            android:drawableStart="@drawable/ic_collaboration"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:onClick="collaboratorsClick"
             android:text="Colaboratori" />
 
         <Button
             android:id="@+id/ProiecteButton"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:background="@drawable/menu_buttons"
+            android:drawableStart="@drawable/ic_plant"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:onClick="projectClick"
             android:text="Proiecte" />
+
+
     </LinearLayout>
+<LinearLayout
+    android:layout_height="150dp"
+    android:layout_width="150dp"
+    android:gravity="right">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="72dp"
-        android:layout_height="111dp"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.92"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.909"
-        app:srcCompat="@android:drawable/ic_input_add" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@drawable/ic_communication_menu"
+        />
+</LinearLayout>
+
+
+<!--    <com.google.android.material.navigation.NavigationView-->
+<!--        android:id="@+id/nav_view"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_gravity="start"-->
+<!--        android:fitsSystemWindows="true"-->
+<!--        app:headerLayout="@layout/nav_header_main"-->
+<!--        app:menu="@menu/menu_"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+
+<!--    />-->
+<!--    -->
+
+<!--    <com.google.android.material.navigation.NavigationView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:menu="@menu/activity_menu__drawer"-->
+<!--        app:headerLayout="@layout/nav_header_menu_"-->
+
+<!--        />-->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_menu__drawer" />
+
+</androidx.drawerlayout.widget.DrawerLayout>
