@@ -52,21 +52,24 @@
             android:paddingEnd="10dp"
             android:onClick="projectClick"
             android:text="Proiecte" />
-    </LinearLayout>
 
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/fab"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="bottom|end"-->
-<!--        android:layout_margin="@dimen/fab_margin"-->
-<!--        app:srcCompat="@drawable/ic_communication_menu"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.95"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.95" />-->
+
+    </LinearLayout>
+<LinearLayout
+    android:layout_height="150dp"
+    android:layout_width="150dp"
+    android:gravity="right">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@drawable/ic_communication_menu"
+        />
+</LinearLayout>
+
 
 <!--    <com.google.android.material.navigation.NavigationView-->
 <!--        android:id="@+id/nav_view"-->
