@@ -6,11 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.TextView
 
 class ViewHolder(view : View){
     val view = view
-    var projectTextView : TextView? = null
+    var ProjectButton : Button? = null
     var companyTextView : TextView? = null
     var userTextView : TextView? = null
     var chatTextView : TextView? = null
@@ -19,7 +20,7 @@ class ViewHolder(view : View){
         when(typeOfHolder)
         {
             1 -> {
-                projectTextView = view.findViewById(R.id.projectTextView)
+                ProjectButton = view.findViewById(R.id.ProjectButton)
             }
             2 -> {
                 companyTextView = view.findViewById(R.id.companyTextView)
@@ -68,7 +69,7 @@ class CustomAdapter(context: Context, private val resource: Int, private val arr
 
         when(typeOfAdapter){
             1 -> {
-                viewHolder.projectTextView?.text = currentItem.toString()
+                viewHolder.ProjectButton?.text = currentItem.toString()
             }
             2 ->{
                 viewHolder.companyTextView?.text = currentItem.toString()
