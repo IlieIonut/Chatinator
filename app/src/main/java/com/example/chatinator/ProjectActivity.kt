@@ -12,7 +12,7 @@ class ProjectActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        window.setBackgroundDrawableResource(R.drawable.background)
         setContentView(R.layout.projects_layout)
 
         val projectsDatabase: DatabaseReference = FirebaseDatabase.getInstance().getReference("projects")
@@ -47,7 +47,7 @@ class ProjectActivity : AppCompatActivity() {
                 }
                 Log.d(TAG, "Size of projects array is ${projects.size}")
                 val projectAdapter = CustomAdapter(this@ProjectActivity, R.layout.project_item, projects, 1)
-                projectsListView.adapter = projectAdapter
+                //projectsListView.adapter = projectAdapter
             }
 
             override fun onCancelled(error: DatabaseError) {
