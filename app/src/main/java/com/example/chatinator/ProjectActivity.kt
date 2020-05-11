@@ -55,7 +55,7 @@ class ProjectActivity : AppCompatActivity() {
                 }
                 Log.d(TAG, "Size of projects array is ${projects.size}")
                 val projectAdapter = CustomAdapter(this@ProjectActivity, R.layout.project_item, projects, 1)
-                //projectsListView.adapter = projectAdapter
+                projectsListView.adapter = projectAdapter
             }
 
             override fun onCancelled(error: DatabaseError) {
