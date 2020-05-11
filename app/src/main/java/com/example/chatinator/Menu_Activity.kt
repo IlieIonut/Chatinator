@@ -8,11 +8,13 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class Menu_Activity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private val TAG = "MenuActivity"
+    private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +63,12 @@ class Menu_Activity : AppCompatActivity() {
 
     fun companyClick(Button : View) {
         startActivity(Intent(this@Menu_Activity,CompanyActivity::class.java))
+    }
+
+    fun SignOutClick (Button: View){
+        mAuth.signOut()
+        finish()
+        startActivity(Intent(this@Menu_Activity,MainActivity::class.java))
     }
 }
 
