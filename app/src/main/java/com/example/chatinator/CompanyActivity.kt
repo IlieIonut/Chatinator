@@ -40,13 +40,13 @@ class CompanyActivity : AppCompatActivity() {
                 for (keyNode in dataSnapshot.children) {
                     keyNode.key?.let { keys.add(it) }
                     val company = keyNode.getValue(Company::class.java)
-                    Log.d(TAG, "Read project from databse:\n $company")
+                    Log.d(TAG, "Read company from databse:\n $company")
                     if (company != null) {
                         Log.d(TAG, "Added project to projects array")
                         companies.add(company)
                     }
                 }
-                Log.d(TAG, "Size of projects array is ${companies.size}")
+                Log.d(TAG, "Size of companies array is ${companies.size}")
                 val projectAdapter = CustomAdapter(this@CompanyActivity, R.layout.companies_item, companies, 2)
                 companiesListView.adapter = projectAdapter
             }
@@ -56,10 +56,6 @@ class CompanyActivity : AppCompatActivity() {
                 Log.w(TAG, "Failed to read value.", error.toException())
             }
         })
-
-//
-//            val companyAdapter = CustomAdapter(this, R.layout.companies_item, companies,2)
-//            companiesListView.adapter = companyAdapter
-        }
     }
+}
 
