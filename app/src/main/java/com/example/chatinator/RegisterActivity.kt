@@ -7,6 +7,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.register_layout.*
 
 
@@ -31,6 +33,7 @@ class RegisterActivity : AppCompatActivity() {
                 val password = passwordRegister.text.toString()
                 val confirmPassword = passwordConfirm.text.toString()
                 val email = emailRegister.text.toString()
+                val username = usernameRegister.text.toString()
 
                 if(password == confirmPassword) {
 
@@ -41,6 +44,15 @@ class RegisterActivity : AppCompatActivity() {
                                 // Sign in success, update UI with the signed-in user's information
                                 val user: FirebaseUser? = firebaseAuth.currentUser
                                 Log.d(TAG,"User registered, currentUser is $user")
+                                val usersDatabase: DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
+
+                                Log.d(TAG,"users database reference is $usersDatabase")
+
+                                val id : String? = usersDatabase.push().key
+
+                                val savedUser = User(id!!,username,0,email)
+
+                                usersDatabase.child(id).setValue(savedUser)
                                 startActivity(Intent(this@RegisterActivity,Menu_Activity::class.java))
                     //                                        updateUI(user)
                             } else {
