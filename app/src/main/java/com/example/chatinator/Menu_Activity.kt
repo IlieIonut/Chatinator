@@ -27,7 +27,7 @@ class Menu_Activity : AppCompatActivity() {
         setContentView(R.layout.menu_layout)
 
 
-
+    /// TODO CREARE BUTTON
         mDrawerLayout = findViewById(R.id.menuLayout)
         mToggle = ActionBarDrawerToggle(this@Menu_Activity, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         mDrawerLayout.addDrawerListener(mToggle)
