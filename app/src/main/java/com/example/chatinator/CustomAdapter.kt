@@ -13,6 +13,7 @@ class ViewHolder(view : View){
     var projectTextView : TextView? = null
     var companyTextView : TextView? = null
     var userTextView : TextView? = null
+    var chatTextView : TextView? = null
 
     fun decideTypeOfHolder(typeOfHolder : Int){
         when(typeOfHolder)
@@ -25,6 +26,9 @@ class ViewHolder(view : View){
             }
             3 ->{
                 userTextView = view.findViewById(R.id.collaboratorTextView)
+            }
+            4 ->{
+                chatTextView = view.findViewById(R.id.chatTextView)
             }
         }
     }
@@ -71,6 +75,9 @@ class CustomAdapter(context: Context, private val resource: Int, private val arr
             }
             3 -> {
                 viewHolder.userTextView?.text = currentItem.toString()
+            }
+            4 -> {
+                viewHolder.chatTextView?.text = currentItem.toString()
             }
         }
         return view

@@ -34,10 +34,7 @@ class ProjectActivity : AppCompatActivity() {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
 
-                val keys = ArrayList<String>()
-
                 for (keyNode in dataSnapshot.children) {
-                    keyNode.key?.let { keys.add(it) }
                     val project = keyNode.getValue(Project::class.java)
                     Log.d(TAG, "Read project from databse:\n $project")
                     if (project != null) {
