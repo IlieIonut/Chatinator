@@ -1,19 +1,30 @@
 package com.example.chatinator
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.projects_layout.*
 
 
 class ProjectActivity : AppCompatActivity() {
     private val TAG = "ProjectActivity"
-
+    private lateinit var mDrawerLayout: DrawerLayout
+    private lateinit var mToggle: ActionBarDrawerToggle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setBackgroundDrawableResource(R.drawable.background)
         setContentView(R.layout.projects_layout)
+        mDrawerLayout = findViewById(R.id.menuLayout)
+        mToggle = ActionBarDrawerToggle(this@ProjectActivity, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        mDrawerLayout.addDrawerListener(mToggle)
+        mToggle.syncState()
+        window.setBackgroundDrawableResource(R.drawable.background)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val projectsDatabase: DatabaseReference = FirebaseDatabase.getInstance().getReference("projects")
 
@@ -54,6 +65,24 @@ class ProjectActivity : AppCompatActivity() {
         })
 
     }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        mToggle.syncState()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        mToggle.onConfigurationChanged(newConfig)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (mToggle.onOptionsItemSelected(item)) {
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }
 
 
