@@ -75,7 +75,7 @@
                 android:background="@drawable/rounded_white"
                 android:drawableStart="@drawable/ic_people"
                 android:drawablePadding="10dp"
-                android:hint="Username"
+                android:hint="@string/email"
                 android:paddingStart="10dp"
                 android:textColorHint="#a8a8a8"
 

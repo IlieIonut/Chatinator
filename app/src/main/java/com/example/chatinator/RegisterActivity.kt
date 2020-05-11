@@ -50,7 +50,7 @@ class RegisterActivity : AppCompatActivity() {
 
                                 val id : String? = usersDatabase.push().key
 
-                                val savedUser = User(id!!,username,0)
+                                val savedUser = User(id!!,username,0,email)
 
                                 usersDatabase.child(id).setValue(savedUser)
                                 startActivity(Intent(this@RegisterActivity,Menu_Activity::class.java))
