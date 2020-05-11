@@ -20,6 +20,13 @@
         app:layout_constraintVertical_bias="0.31">
 
         <Button
+            android:id="@+id/SignOutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="SignOutClick"
+            android:text="Sign-out" />
+
+        <Button
             android:id="@+id/CompaniiButton"
             android:layout_width="350dp"
             android:layout_height="50dp"
@@ -30,6 +37,7 @@
             android:paddingEnd="10dp"
             android:onClick="companyClick"
             android:text="Companii" />
+
         <Button
             android:id="@+id/ColaboratoriButton"
             android:layout_width="350dp"
