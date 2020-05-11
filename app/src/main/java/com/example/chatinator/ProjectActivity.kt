@@ -10,7 +10,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.projects_layout.*
 
-
 class ProjectActivity : AppCompatActivity() {
     private val TAG = "ProjectActivity"
     private lateinit var mDrawerLayout: DrawerLayout
@@ -19,11 +18,11 @@ class ProjectActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         window.setBackgroundDrawableResource(R.drawable.background)
         setContentView(R.layout.projects_layout)
-        mDrawerLayout = findViewById(R.id.menuLayout)
+
+        mDrawerLayout = findViewById(R.id.projectLayout)
         mToggle = ActionBarDrawerToggle(this@ProjectActivity, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         mDrawerLayout.addDrawerListener(mToggle)
         mToggle.syncState()
-        window.setBackgroundDrawableResource(R.drawable.background)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val projectsDatabase: DatabaseReference = FirebaseDatabase.getInstance().getReference("projects")

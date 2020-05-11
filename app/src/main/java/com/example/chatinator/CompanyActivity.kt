@@ -1,8 +1,12 @@
 package com.example.chatinator
 
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.drawerlayout.widget.DrawerLayout
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.companies_layout.*
 import kotlinx.android.synthetic.main.projects_layout.*
@@ -10,12 +14,18 @@ import kotlinx.android.synthetic.main.projects_layout.*
 class CompanyActivity : AppCompatActivity() {
 
     private val TAG = "CompanyActivity"
-
+    private lateinit var mDrawerLayout: DrawerLayout
+    private lateinit var mToggle: ActionBarDrawerToggle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        window.setBackgroundDrawableResource(R.drawable.background)
         setContentView(R.layout.companies_layout)
 
+        mDrawerLayout = findViewById(R.id.companiesLayout)
+        mToggle = ActionBarDrawerToggle(this@CompanyActivity, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        mDrawerLayout.addDrawerListener(mToggle)
+        mToggle.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val companyDatabase: DatabaseReference = FirebaseDatabase.getInstance().getReference("companies")
 
         ///TEMPORARY SOLUTION TO ADD COMPANY TO DATABASE
@@ -56,6 +66,22 @@ class CompanyActivity : AppCompatActivity() {
                 Log.w(TAG, "Failed to read value.", error.toException())
             }
         })
+    }
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        mToggle.syncState()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        mToggle.onConfigurationChanged(newConfig)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (mToggle.onOptionsItemSelected(item)) {
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
 
