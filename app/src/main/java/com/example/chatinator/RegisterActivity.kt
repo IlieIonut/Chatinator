@@ -17,6 +17,7 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setBackgroundDrawableResource(R.drawable.background)
         setContentView(R.layout.register_layout)
         Log.d(TAG,"Started")
     }
