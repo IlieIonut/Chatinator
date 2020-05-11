@@ -1,22 +1,39 @@
 package com.example.chatinator
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.firebase.auth.FirebaseAuth
 
 class Menu_Activity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private val TAG = "MenuActivity"
-
+    private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    private lateinit var mDrawerLayout: DrawerLayout
+    private lateinit var mToggle: ActionBarDrawerToggle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.menu_layout)
+
+
+
+        mDrawerLayout = findViewById(R.id.menuLayout)
+        mToggle = ActionBarDrawerToggle(this@Menu_Activity, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        mDrawerLayout.addDrawerListener(mToggle)
+        mToggle.syncState()
+        window.setBackgroundDrawableResource(R.drawable.background)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 //        val toolbar: Toolbar = findViewById(R.id.toolbar)
 //        setSupportActionBar(toolbar)
 //
@@ -40,14 +57,36 @@ class Menu_Activity : AppCompatActivity() {
 
     }
 
+
+    ///Urmatoarele 3 functii au fixat problema ta @Sevciuc
+    ///https://code.tutsplus.com/tutorials/how-to-code-a-navigation-drawer-in-an-android-app--cms-30263 mai multe explicatii aici
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        mToggle.syncState()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        mToggle.onConfigurationChanged(newConfig)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (mToggle.onOptionsItemSelected(item)) {
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_, menu)
+        Log.d(TAG, "menu inflate")
         return true
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
+        Log.d(TAG, "nav host")
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
@@ -61,6 +100,12 @@ class Menu_Activity : AppCompatActivity() {
 
     fun companyClick(Button : View) {
         startActivity(Intent(this@Menu_Activity,CompanyActivity::class.java))
+    }
+
+    fun SignOutClick(Button: View){
+        mAuth.signOut()
+        finish()
+        startActivity(Intent(this@Menu_Activity,MainActivity::class.java))
     }
 }
 
