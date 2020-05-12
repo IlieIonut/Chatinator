@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ListView
 import android.widget.TextView
 
 class ViewHolder(view : View){
@@ -14,7 +15,9 @@ class ViewHolder(view : View){
     var ProjectButton : Button? = null
     var companyTextView : TextView? = null
     var userTextView : TextView? = null
+    var projectTextView : TextView? = null
     var chatTextView : TextView? = null
+    var collaboratorsList : ListView? = null
 
     fun decideTypeOfHolder(typeOfHolder : Int){
         when(typeOfHolder)
@@ -26,10 +29,13 @@ class ViewHolder(view : View){
                 companyTextView = view.findViewById(R.id.companyTextView)
             }
             3 ->{
-                userTextView = view.findViewById(R.id.collaboratorTextView)
+                userTextView = view.findViewById(R.id.people)
             }
             4 ->{
                 chatTextView = view.findViewById(R.id.chatTextView)
+            }
+            5 ->{
+                projectTextView = view.findViewById(R.id.collaboratorProjectName)
             }
         }
     }
@@ -79,6 +85,9 @@ class CustomAdapter(context: Context, private val resource: Int, private val arr
             }
             4 -> {
                 viewHolder.chatTextView?.text = currentItem.toString()
+            }
+            5 -> {
+                viewHolder.projectTextView?.text = currentItem.toString()
             }
         }
         return view

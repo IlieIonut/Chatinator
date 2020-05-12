@@ -53,13 +53,16 @@ class CollaboratorActivity : AppCompatActivity() {
                     }
                 }
                 Log.d(TAG, "Size of users array is ${users.size}")
-                val userAdapter = CustomAdapter(this@CollaboratorActivity, R.layout.collaborators_item, users, 3)
-                collaboratorsListView.adapter = userAdapter
-                collaboratorsListView.onItemClickListener = AdapterView.OnItemClickListener(){ adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
-                    val intent = Intent(this@CollaboratorActivity, ChatActivity::class.java)
-                    intent.putExtra("ReceiverName",view1.collaboratorTextView.text.toString())
-                    startActivity(intent)
-                }
+                val projectAdapter = CustomAdapter(this@CollaboratorActivity, R.layout.collaborators_item, users, 5)
+                collaboratorsListView?.adapter = projectAdapter
+                val userAdapter = CustomAdapter(this@CollaboratorActivity, R.layout.people_item, users, 3)
+                collaboratorsPeople?.adapter = userAdapter
+
+//                collaboratorsListView.onItemClickListener = AdapterView.OnItemClickListener(){ adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
+//                    val intent = Intent(this@CollaboratorActivity, ChatActivity::class.java)
+//                    intent.putExtra("ReceiverName",view1.collaboratorTextView.text.toString())
+//                    startActivity(intent)
+//                }
             }
 
 
