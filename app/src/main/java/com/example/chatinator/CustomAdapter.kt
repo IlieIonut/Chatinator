@@ -85,7 +85,7 @@ class CustomAdapter(context: Context, private val resource: Int, private val arr
                 viewHolder.chatTextView?.text = currentItem.toString()
             }
             5 ->{
-                viewHolder.taskTextView?.text = currentItem.toString()
+                viewHolder.taskTextView?.text = currentItem.name
             }
         }
         return view
