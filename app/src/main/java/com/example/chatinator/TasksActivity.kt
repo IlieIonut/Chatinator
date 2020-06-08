@@ -1,9 +1,11 @@
 package com.example.chatinator
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.project_item.view.*
 import kotlinx.android.synthetic.main.tasks_layout.*
 import java.lang.Exception
 
@@ -17,7 +19,7 @@ class TasksActivity : AppCompatActivity() {
         val projectsDataBase = FirebaseDatabase.getInstance().getReference("projects")
         val projectName = intent.getStringExtra("ProjectName")
         var specificProjectReference : DatabaseReference? = null
-        val tasks = ArrayList<Task>()
+        var id : String? = null
 
 //        val id : String? = specificProjectReference!!.push().key
 //        val task = Task("Primul task",id!!,"7 days",false)
@@ -25,11 +27,13 @@ class TasksActivity : AppCompatActivity() {
 
         projectsDataBase.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val tasks = ArrayList<Task>()
                 for (keyNode in dataSnapshot.children) {
                     val project = keyNode.getValue(Project::class.java)
                     if (project != null) {
                         if(project.name == projectName){
                             specificProjectReference = project.id.let { it -> projectsDataBase.child(it)}
+                            id = project.id
 
                             Log.d(TAG,"Reference to specific project is $specificProjectReference")
                             specificProjectReference!!.addValueEventListener(object : ValueEventListener {
@@ -64,5 +68,11 @@ class TasksActivity : AppCompatActivity() {
                 Log.w(TAG, "Failed to read value.", error.toException())
             }
         })
+
+        taskButton.setOnClickListener {
+            val intent = Intent(this@TasksActivity, AddTaskActivity::class.java)
+            intent.putExtra("ProjectReference",id)
+            startActivity(intent)
+        }
     }
 }

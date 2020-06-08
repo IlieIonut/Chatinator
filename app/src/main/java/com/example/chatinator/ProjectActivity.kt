@@ -43,13 +43,14 @@ class ProjectActivity : AppCompatActivity() {
 //
 //        projectsDatabase.child(id).setValue(project)
 
-        val projects = ArrayList<Project>()
 
         // Read from the database
         projectsDatabase.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
+
+                val projects = ArrayList<Project>()
 
                 for (keyNode in dataSnapshot.children) {
                     val project = keyNode.getValue(Project::class.java)
