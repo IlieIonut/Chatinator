@@ -114,22 +114,20 @@ class MainActivity : AppCompatActivity() {
         alertDialog.setTitle("Network Error")
         alertDialog.setMessage("Please check your internet connection")
 
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", {
-                dialog: DialogInterface?, which: Int ->
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK") { dialog: DialogInterface?, which: Int ->
 
 
             startActivity(Intent(Settings.ACTION_SETTINGS))
 
-        })
+        }
 
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", {
-                dialog: DialogInterface?, which: Int ->
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel") { dialog: DialogInterface?, which: Int ->
 
             Toast.makeText(this@MainActivity,
                 "You must be connected to the internet",
                 Toast.LENGTH_SHORT).show()
             finish()
-        })
+        }
 
 
         alertDialog.show()

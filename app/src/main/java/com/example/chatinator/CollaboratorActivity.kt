@@ -20,8 +20,6 @@ class CollaboratorActivity : AppCompatActivity() {
 
         val collaboratorsDatabase : DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
 
-        val users = ArrayList<User>()
-
         // Read from the database
         collaboratorsDatabase.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -29,13 +27,14 @@ class CollaboratorActivity : AppCompatActivity() {
                 // whenever data at this location is updated.
 
                 val keys = ArrayList<String>()
+                val users = ArrayList<User>()
 
                 for (keyNode in dataSnapshot.children) {
                     keyNode.key?.let { keys.add(it) }
                     val user = keyNode.getValue(User::class.java)
                     Log.d(TAG, "Read user from database:\n $user")
                     if (user != null) {
-                        Log.d(TAG, "Added project to projects array")
+                        Log.d(TAG, "Added user to users array")
                         users.add(user)
                     }
                 }
