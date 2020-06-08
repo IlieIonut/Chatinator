@@ -25,16 +25,13 @@ class CollaboratorActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-
-                val keys = ArrayList<String>()
                 val users = ArrayList<User>()
 
                 for (keyNode in dataSnapshot.children) {
-                    keyNode.key?.let { keys.add(it) }
                     val user = keyNode.getValue(User::class.java)
                     Log.d(TAG, "Read user from database:\n $user")
                     if (user != null) {
-                        Log.d(TAG, "Added user to users array")
+                        Log.d(TAG, "Added project to projects array")
                         users.add(user)
                     }
                 }
