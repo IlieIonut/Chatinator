@@ -1,8 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/collaboratorTextView"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:textSize="18sp">
+    android:layout_height="wrap_content"
+    android:maxHeight="200dp"
+    android:orientation="vertical"
+    android:background="@drawable/trans_white_rectangle"
+    android:layout_marginStart="30dp"
+    android:layout_marginEnd="30dp"
+    android:padding="20dp"
+    >
 
-</TextView>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/collaboratorProjectName"
+        android:text="Project"
+        android:textSize="20sp"
+
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#1c11b8"
+
+        />
+
+<!--    <TextView-->
+<!--        android:id="@+id/collaboratorTextView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:textSize="18sp"/>-->
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/collaboratorsPeople"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="5dp"
+        />
+
+
+</LinearLayout>
