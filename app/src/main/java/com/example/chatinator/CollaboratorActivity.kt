@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.collaborators_item.*
 import kotlinx.android.synthetic.main.collaborators_item.view.*
 import kotlinx.android.synthetic.main.collaborators_layout.*
 
