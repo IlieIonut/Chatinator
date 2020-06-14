@@ -11,6 +11,4 @@
     android:onClick="projectItemClick"
     android:paddingStart="10dp"
     android:paddingEnd="10dp"
-    android:text="proiect11">
-
-    />
+    android:text="proiect11"/>

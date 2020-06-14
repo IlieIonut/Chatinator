@@ -11,8 +11,8 @@ import android.widget.AdapterView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.collaborators_item.view.*
 import kotlinx.android.synthetic.main.collaborators_layout.*
+import kotlinx.android.synthetic.main.people_item.view.*
 
 class CollaboratorActivity : AppCompatActivity() {
     private val TAG = "CollaboratorActivity"
@@ -48,16 +48,14 @@ class CollaboratorActivity : AppCompatActivity() {
                     }
                 }
                 Log.d(TAG, "Size of users array is ${users.size}")
-                val projectAdapter = CustomAdapter(this@CollaboratorActivity, R.layout.collaborators_item, users, 5)
-                collaboratorsListView?.adapter = projectAdapter
                 val userAdapter = CustomAdapter(this@CollaboratorActivity, R.layout.people_item, users, 3)
-                collaboratorsPeople?.adapter = userAdapter
+                collaboratorsListView?.adapter = userAdapter
 
-//                collaboratorsListView.onItemClickListener = AdapterView.OnItemClickListener(){ adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
-//                    val intent = Intent(this@CollaboratorActivity, ChatActivity::class.java)
-//                    intent.putExtra("ReceiverName",view1.collaboratorTextView.text.toString())
-//                    startActivity(intent)
-//                }
+                collaboratorsListView.onItemClickListener = AdapterView.OnItemClickListener(){ adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
+                    val intent = Intent(this@CollaboratorActivity, ChatActivity::class.java)
+                    intent.putExtra("ReceiverName",view1.people.text.toString())
+                    startActivity(intent)
+                }
             }
 
 

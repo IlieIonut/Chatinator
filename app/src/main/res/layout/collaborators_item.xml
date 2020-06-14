@@ -11,12 +11,11 @@
     >
 
 
-
     <TextView
+        android:id="@+id/collaboratorTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/collaboratorProjectName"
-        android:text="Project"
+        android:text="User"
         android:textSize="20sp"
 
         />
@@ -24,23 +23,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:background="#1c11b8"
 
-        />
+        android:background="#1c11b8" />
 
 <!--    <TextView-->
 <!--        android:id="@+id/collaboratorTextView"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="match_parent"-->
 <!--        android:textSize="18sp"/>-->
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/collaboratorsPeople"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="5dp"
-        />
 
 
 </LinearLayout>
