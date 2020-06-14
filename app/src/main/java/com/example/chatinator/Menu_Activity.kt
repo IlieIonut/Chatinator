@@ -100,5 +100,9 @@ class Menu_Activity : AppCompatActivity() {
         finish()
         startActivity(Intent(this@Menu_Activity,MainActivity::class.java))
     }
+
+    fun floatingButtonClick(Button: View){
+        startActivity(Intent(this@Menu_Activity,ShowTasksActivity::class.java))
+    }
 }
 

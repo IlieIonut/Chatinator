@@ -1,19 +1,23 @@
 package com.example.chatinator
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.project_item.view.*
 import kotlinx.android.synthetic.main.projects_layout.*
 
 class ProjectActivity : AppCompatActivity() {
     private val TAG = "ProjectActivity"
     private lateinit var mDrawerLayout: DrawerLayout
     private lateinit var mToggle: ActionBarDrawerToggle
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setBackgroundDrawableResource(R.drawable.background)
@@ -36,13 +40,14 @@ class ProjectActivity : AppCompatActivity() {
 //
 //        projectsDatabase.child(id).setValue(project)
 
-        val projects = ArrayList<Project>()
 
         // Read from the database
         projectsDatabase.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
+
+                val projects = ArrayList<Project>()
 
                 for (keyNode in dataSnapshot.children) {
                     val project = keyNode.getValue(Project::class.java)
@@ -80,6 +85,13 @@ class ProjectActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun projectItemClick(Button : View) {
+        val intent = Intent(this@ProjectActivity, TasksActivity::class.java)
+        intent.putExtra("ProjectName",Button.ProjectButton.text.toString())
+        Log.d(TAG,"Name of the project is ${Button.ProjectButton.text}")
+        startActivity(intent)
     }
 
 }

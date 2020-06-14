@@ -11,7 +11,6 @@ import android.widget.AdapterView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.collaborators_item.*
 import kotlinx.android.synthetic.main.collaborators_item.view.*
 import kotlinx.android.synthetic.main.collaborators_layout.*
 
@@ -33,22 +32,18 @@ class CollaboratorActivity : AppCompatActivity() {
 
         val collaboratorsDatabase : DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
 
-        val users = ArrayList<User>()
-
         // Read from the database
         collaboratorsDatabase.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-
-                val keys = ArrayList<String>()
+                val users = ArrayList<User>()
 
                 for (keyNode in dataSnapshot.children) {
-                    keyNode.key?.let { keys.add(it) }
                     val user = keyNode.getValue(User::class.java)
-                    Log.d(TAG, "Read user from database:\n $user")
+                    Log.d(TAG, "Read collaborator from database:\n $user")
                     if (user != null) {
-                        Log.d(TAG, "Added project to projects array")
+                        Log.d(TAG, "Added collaborator to collaborator array")
                         users.add(user)
                     }
                 }
