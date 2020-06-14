@@ -5,6 +5,7 @@ Chatinator este o aplicatie de project management care permite utilizatorilor sa
 
 
 USER STORIES
+
 1. Environment setup
 2. Create login/register functionality for users
 3. Connect to firebase database
@@ -19,21 +20,25 @@ USER STORIES
 12. Option for user to see his selected tasks
 
 SOURCE CONTROL
+
 Am folosit git pentru organizarea branch-urilor si functionalitatilor aplicatiei.
 Am creat cate un branch pt fiecare membru al echipei.
 In branch-ul respectiv fiecare membru implementa task-urile pe care le avea in sarcina.
 Dupa testare se facea un merge cu branch-ul master.
 
 BUG REPORTING
+
 Am raportat bug-urile intern, intre membrii echipei.
 Membrul care era responsabil de crearea bug-ului incerca sa-l rezolve, iar daca nu reusea, cerea ajutorul celorlati.
 Bug-urile rezolvate apar in commit-uri cu titlul "bug fix" sau alte nume sugestive.
 
 BUILD TOOL
+
 Ca build tool, am folosit gradle.
 Gradle care era integrat in android studio, acesta din urma fiind folosit la dezvoltarea aplicatiei.
 
 REFACTORING
+
 Codurile scrise respecta standardele kotlin.
 
 
