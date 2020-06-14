@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.collaborators_item.*
 import kotlinx.android.synthetic.main.collaborators_item.view.*
 import kotlinx.android.synthetic.main.collaborators_layout.*
 
@@ -29,9 +28,9 @@ class CollaboratorActivity : AppCompatActivity() {
 
                 for (keyNode in dataSnapshot.children) {
                     val user = keyNode.getValue(User::class.java)
-                    Log.d(TAG, "Read user from database:\n $user")
+                    Log.d(TAG, "Read collaborator from database:\n $user")
                     if (user != null) {
-                        Log.d(TAG, "Added project to projects array")
+                        Log.d(TAG, "Added collaborator to collaborator array")
                         users.add(user)
                     }
                 }

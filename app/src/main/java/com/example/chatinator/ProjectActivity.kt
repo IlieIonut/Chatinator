@@ -6,12 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.nav_header_menu_.view.*
 import kotlinx.android.synthetic.main.project_item.view.*
 import kotlinx.android.synthetic.main.projects_layout.*
 

@@ -129,6 +129,7 @@ class ChatActivity : AppCompatActivity() {
 
                 messageReferenceInSenderReference.child(id).setValue(message)
                 messageReferenceInReceiverReference.child(id).setValue(message)
+                Log.d(TAG,"Successfully added message to the database")
 
             }
         }

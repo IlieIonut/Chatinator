@@ -1,9 +1,9 @@
 package com.example.chatinator
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.add_task_layout.*
 
@@ -27,6 +27,7 @@ class AddTaskActivity : AppCompatActivity() {
                 val id : String? = projectsDataBase.push().key
                 val task = Task(taskName,id!!,taskDeadline,false)
                 specificProjectReference.child(id).setValue(task)
+                Log.d(TAG,"Successfully added a task")
                 finish()
             }
         }

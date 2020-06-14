@@ -8,11 +8,9 @@ import android.view.View
 import android.widget.AdapterView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.project_item.view.*
 import kotlinx.android.synthetic.main.task_item.view.*
 import kotlinx.android.synthetic.main.tasks_layout.*
 import java.lang.Exception
-import kotlin.math.log
 
 class TasksActivity : AppCompatActivity() {
     private val TAG = "TasksActivity"
