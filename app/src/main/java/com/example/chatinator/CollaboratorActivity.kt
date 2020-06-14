@@ -28,9 +28,9 @@ class CollaboratorActivity : AppCompatActivity() {
 
                 for (keyNode in dataSnapshot.children) {
                     val user = keyNode.getValue(User::class.java)
-                    Log.d(TAG, "Read user from database:\n $user")
+                    Log.d(TAG, "Read collaborator from database:\n $user")
                     if (user != null) {
-                        Log.d(TAG, "Added project to projects array")
+                        Log.d(TAG, "Added collaborator to collaborator array")
                         users.add(user)
                     }
                 }

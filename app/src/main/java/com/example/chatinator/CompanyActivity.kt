@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.companies_layout.*
-import kotlinx.android.synthetic.main.projects_layout.*
 
 class CompanyActivity : AppCompatActivity() {
 
@@ -40,9 +39,9 @@ class CompanyActivity : AppCompatActivity() {
                 for (keyNode in dataSnapshot.children) {
                     keyNode.key?.let { keys.add(it) }
                     val company = keyNode.getValue(Company::class.java)
-                    Log.d(TAG, "Read company from databse:\n $company")
+                    Log.d(TAG, "Read company from database:\n $company")
                     if (company != null) {
-                        Log.d(TAG, "Added project to projects array")
+                        Log.d(TAG, "Added company to companies array")
                         companies.add(company)
                     }
                 }
