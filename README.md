@@ -1,6 +1,7 @@
 CHATINATOR – PROCES DE DEZVOLTARE SOFTWARE
 
 DESCRIERE
+
 Chatinator este o aplicatie de project management care permite utilizatorilor sa-si aleaga task-uri pe care sa le rezolve, din cadrul proiectului in care sunt repartizati si de asemenea, cel mai important lucru, le permite sa comunice intre ei direct in aplicatie, astfel facand mult mai usoara comunicarea.
 
 
