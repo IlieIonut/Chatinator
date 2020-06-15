@@ -1,11 +1,15 @@
 package com.example.chatinator
 
 import android.content.Intent
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.drawerlayout.widget.DrawerLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.task_item.view.*
@@ -15,10 +19,20 @@ import java.lang.Exception
 class TasksActivity : AppCompatActivity() {
     private val TAG = "TasksActivity"
     private val firebaseAuth : FirebaseAuth = FirebaseAuth.getInstance()
+    private lateinit var mDrawerLayout: DrawerLayout
+    private lateinit var mToggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.tasks_layout)
+
+
+        mDrawerLayout = findViewById(R.id.taskLayout)
+        mToggle = ActionBarDrawerToggle(this@TasksActivity, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        mDrawerLayout.addDrawerListener(mToggle)
+        mToggle.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
 
         val projectsDataBase = FirebaseDatabase.getInstance().getReference("projects")
         val usersDataBase = FirebaseDatabase.getInstance().getReference("users")
@@ -115,4 +129,21 @@ class TasksActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        mToggle.syncState()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        mToggle.onConfigurationChanged(newConfig)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (mToggle.onOptionsItemSelected(item)) {
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }

@@ -13,9 +13,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
-class Menu_Activity : AppCompatActivity() {
+class Menu_Activity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private val TAG = "MenuActivity"
@@ -26,6 +27,8 @@ class Menu_Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.menu_layout)
 
+        val navigationView: NavigationView = findViewById(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(this)
 
     /// TODO CREARE BUTTON
         mDrawerLayout = findViewById(R.id.menuLayout)
@@ -95,10 +98,16 @@ class Menu_Activity : AppCompatActivity() {
         startActivity(Intent(this@Menu_Activity,CompanyActivity::class.java))
     }
 
-    fun SignOutClick(Button: View){
-        mAuth.signOut()
-        finish()
-        startActivity(Intent(this@Menu_Activity,MainActivity::class.java))
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        if(R.id.nav_home==item.itemId) {
+            startActivity(Intent(this@Menu_Activity,Menu_Activity::class.java))
+        }
+        if(R.id.nav_exit==item.itemId) {
+            mAuth.signOut()
+            finish()
+            startActivity(Intent(this@Menu_Activity,MainActivity::class.java))
+        }
+        return true
     }
 
     fun floatingButtonClick(Button: View){

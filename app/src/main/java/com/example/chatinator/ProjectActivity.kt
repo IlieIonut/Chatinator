@@ -9,12 +9,16 @@ import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.project_item.view.*
 import kotlinx.android.synthetic.main.projects_layout.*
 
-class ProjectActivity : AppCompatActivity() {
+class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private val TAG = "ProjectActivity"
+    private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+
     private lateinit var mDrawerLayout: DrawerLayout
     private lateinit var mToggle: ActionBarDrawerToggle
 
@@ -22,6 +26,8 @@ class ProjectActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         window.setBackgroundDrawableResource(R.drawable.background)
         setContentView(R.layout.projects_layout)
+        val navigationView: NavigationView = findViewById(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(this)
 
         mDrawerLayout = findViewById(R.id.projectLayout)
         mToggle = ActionBarDrawerToggle(this@ProjectActivity, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -86,6 +92,18 @@ class ProjectActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        if(R.id.nav_home==item.itemId) {
+            startActivity(Intent(this@ProjectActivity,Menu_Activity::class.java))
+        }
+        if(R.id.nav_exit==item.itemId) {
+            mAuth.signOut()
+            finish()
+            startActivity(Intent(this@ProjectActivity,MainActivity::class.java))
+        }
+        return true
+    }
+
 
     fun projectItemClick(Button : View) {
         val intent = Intent(this@ProjectActivity, TasksActivity::class.java)
