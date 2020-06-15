@@ -1,5 +1,6 @@
 package com.example.chatinator
 
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,18 +8,25 @@ import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.companies_layout.*
 
-class CompanyActivity : AppCompatActivity() {
+class CompanyActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener{
 
     private val TAG = "CompanyActivity"
     private lateinit var mDrawerLayout: DrawerLayout
+    private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+
     private lateinit var mToggle: ActionBarDrawerToggle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setBackgroundDrawableResource(R.drawable.background)
         setContentView(R.layout.companies_layout)
+
+        val navigationView: NavigationView = findViewById(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(this)
 
         mDrawerLayout = findViewById(R.id.companiesLayout)
         mToggle = ActionBarDrawerToggle(this@CompanyActivity, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -81,6 +89,18 @@ class CompanyActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        if(R.id.nav_home==item.itemId) {
+            startActivity(Intent(this@CompanyActivity,Menu_Activity::class.java))
+        }
+        if(R.id.nav_exit==item.itemId) {
+            mAuth.signOut()
+            finish()
+            startActivity(Intent(this@CompanyActivity,MainActivity::class.java))
+        }
+        return true
     }
 }
 

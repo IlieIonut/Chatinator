@@ -10,18 +10,25 @@ import android.view.View
 import android.widget.AdapterView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.collaborators_layout.*
 import kotlinx.android.synthetic.main.people_item.view.*
 
-class CollaboratorActivity : AppCompatActivity() {
+class CollaboratorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private val TAG = "CollaboratorActivity"
     private lateinit var mDrawerLayout: DrawerLayout
     private lateinit var mToggle: ActionBarDrawerToggle
+    private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setBackgroundDrawableResource(R.drawable.background)
         setContentView(R.layout.collaborators_layout)
+
+        val navigationView: NavigationView = findViewById(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(this)
 
         mDrawerLayout = findViewById(R.id.collaboratorsLayout)
         mToggle = ActionBarDrawerToggle(this@CollaboratorActivity, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -82,4 +89,15 @@ class CollaboratorActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        if(R.id.nav_home==item.itemId) {
+            startActivity(Intent(this@CollaboratorActivity,Menu_Activity::class.java))
+        }
+        if(R.id.nav_exit==item.itemId) {
+            mAuth.signOut()
+            finish()
+            startActivity(Intent(this@CollaboratorActivity,MainActivity::class.java))
+        }
+        return true
+    }
 }
